@@ -3,8 +3,10 @@ class_name Player
 @export_group("Configuration")
 @export var char_component: CharacterComponent
 @export var head: Node3D
+@export var GrabSpot : Node3D
 @export var camera: Camera3D
 @export var above: RayCast3D
+@export var GrabRay: RayCast3D
 @export var player_mesh: MeshInstance3D
 var prev_rotation: Vector3
 var prev_mouse_move: float
@@ -12,6 +14,9 @@ var jump_buffer: bool = false
 var buffer_time: float = 0.1
 var prev_delta: float
 var rotate: bool = false
+var grabbing: bool = false
+
+signal ChangedGravity
 
 func _input(event):
 	if event.is_action_pressed("unlock_mouse"):
@@ -41,14 +46,17 @@ func _physics_process(delta: float) -> void:
 		await get_tree().create_timer(buffer_time).timeout
 		jump_buffer = false
 	if Input.is_action_just_pressed("change_gravity"):
-		char_component.gravity = -char_component.gravity
-		char_component.jump_power = -char_component.jump_power
-		char_component.gravity_mode= not char_component.gravity_mode
-		if (char_component.gravity_mode):
-			up_direction = Vector3.DOWN
-		else:
-			up_direction = Vector3.UP
-		rotate = true
+		ChangedGravity.emit()
+		
+		if not Input.is_action_pressed("retain_gravity"):
+			char_component.gravity = -char_component.gravity
+			char_component.jump_power = -char_component.jump_power
+			char_component.gravity_mode= not char_component.gravity_mode
+			if (char_component.gravity_mode):
+				up_direction = Vector3.DOWN
+			else:
+				up_direction = Vector3.UP
+			rotate = true
 		
 	if rotate and above.is_colliding():
 		#var tween = get_tree().create_twewen()
@@ -58,6 +66,16 @@ func _physics_process(delta: float) -> void:
 			
 		#tween.tween_property(player_mesh, "rotation_degrees", Vector3(rotation_degrees.x, rotation_degrees.y, deg), 0.5)
 		rotate = false
+	if Input.is_action_just_pressed("grab"):
+		if grabbing:
+			GrabSpot.get_child(0).maintain_local_pos = false
+			GrabSpot.get_child(0).reparent(get_node("/root/Node3D"))
+			grabbing = false
+		elif not grabbing and GrabRay.is_colliding():
+			if GrabRay.get_collider() is RBBox:
+				GrabRay.get_collider().maintain_local_pos = true
+				GrabRay.get_collider().reparent(GrabSpot)
+				grabbing = true
 
 func _on_touched_ground() -> void:
 	if jump_buffer:

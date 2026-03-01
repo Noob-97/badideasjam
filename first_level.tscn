@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bi5nw562aceo6" path="res://player.tscn" id="1_5puvx"]
 [ext_resource type="Script" uid="uid://5jxlp4s0y0k0" path="res://Scripts/rotate.gd" id="1_fnyhn"]
+[ext_resource type="Script" uid="uid://wt73dsylltvo" path="res://Scripts/RBBox.gd" id="3_7m365"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ccbq8"]
 
@@ -11,6 +12,14 @@ size = Vector3(2, 0.001, 2)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5puvx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fnyhn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fnyhn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m365"]
+albedo_color = Color(0.89996266, 0.512195, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5nl2g"]
+material = SubResource("StandardMaterial3D_7m365")
 
 [node name="Node3D" type="Node3D" unique_id=1201078613]
 
@@ -47,3 +56,15 @@ mesh = SubResource("PlaneMesh_ccbq8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NEGATIVE/StaticBody3D" unique_id=501129273]
 shape = SubResource("BoxShape3D_5puvx")
+
+[node name="RBBox" type="Node3D" parent="." unique_id=1070727768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0453916, 4.138065, -4.482267)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="RBBox" unique_id=537832048]
+script = ExtResource("3_7m365")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RBBox/RigidBody3D" unique_id=2118427896]
+shape = SubResource("BoxShape3D_fnyhn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RBBox/RigidBody3D" unique_id=346267904]
+mesh = SubResource("BoxMesh_5nl2g")
