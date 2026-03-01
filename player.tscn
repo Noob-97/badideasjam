@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bi5nw562aceo6"]
+
+[ext_resource type="Script" uid="uid://dauuesnn0ndef" path="res://Scripts/Components/Player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://cob2eeky0t3ym" path="res://Scripts/Components/CharacterComponent.gd" id="2_6t5aa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jjvhh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kry3j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo1nx"]
+albedo_color = Color(0.58063054, 0.8642447, 0.41984212, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
+material = SubResource("StandardMaterial3D_bo1nx")
+
+[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "camera")]
+script = ExtResource("1_cvnsp")
+char_component = NodePath("CharacterComponent")
+head = NodePath("CameraHandler/head")
+camera = NodePath("CameraHandler/head/Camera3D")
+
+[node name="CameraHandler" type="Node3D" parent="." unique_id=1502466934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030871034, 0.55472654, -0.07312393)
+top_level = true
+
+[node name="head" type="Node3D" parent="CameraHandler" unique_id=1814881882]
+
+[node name="Camera3D" type="Camera3D" parent="CameraHandler/head" unique_id=587745314]
+cull_mask = 1048063
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=532609218]
+shape = SubResource("CapsuleShape3D_jjvhh")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="." unique_id=1601102916]
+mesh = SubResource("CapsuleMesh_kry3j")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PlayerMesh" unique_id=998606283]
+transform = Transform3D(0.7404924, 0, 0, 0, 0.28956592, 0, 0, 0, 0.7359649, 0.00684464, 0.5403266, -0.18323946)
+layers = 512
+mesh = SubResource("BoxMesh_8gbba")
+
+[node name="StairRaycasts" type="Node" parent="." unique_id=1543059935]
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="StairRaycasts" unique_id=1559798851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.88727355, 0)
+target_position = Vector3(0, -0.5, 0)
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="StairRaycasts" unique_id=961923995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3521421, -0.8450795)
+target_position = Vector3(0, -1.1, 0)
+
+[node name="CharacterComponent" type="Node" parent="." unique_id=1992018328 node_paths=PackedStringArray("character_body", "stair_below_rc", "stair_ahead_rc")]
+script = ExtResource("2_6t5aa")
+character_body = NodePath("..")
+stair_below_rc = NodePath("../StairRaycasts/StairsBelowRayCast3D")
+stair_ahead_rc = NodePath("../StairRaycasts/StairsAheadRayCast3D")
