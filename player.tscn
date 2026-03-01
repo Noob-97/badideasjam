@@ -13,11 +13,12 @@ albedo_color = Color(0.58063054, 0.8642447, 0.41984212, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
 material = SubResource("StandardMaterial3D_bo1nx")
 
-[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "camera", "above")]
 script = ExtResource("1_cvnsp")
 char_component = NodePath("CharacterComponent")
 head = NodePath("CameraHandler/head")
 camera = NodePath("CameraHandler/head/Camera3D")
+above = NodePath("GravityRaycasts/Above")
 
 [node name="CameraHandler" type="Node3D" parent="." unique_id=1502466934]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030871034, 0.55472654, -0.07312393)
@@ -26,6 +27,7 @@ top_level = true
 [node name="head" type="Node3D" parent="CameraHandler" unique_id=1814881882]
 
 [node name="Camera3D" type="Camera3D" parent="CameraHandler/head" unique_id=587745314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0424573)
 cull_mask = 1048063
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=532609218]
@@ -54,3 +56,13 @@ script = ExtResource("2_6t5aa")
 character_body = NodePath("..")
 stair_below_rc = NodePath("../StairRaycasts/StairsBelowRayCast3D")
 stair_ahead_rc = NodePath("../StairRaycasts/StairsAheadRayCast3D")
+
+[node name="GravityController" type="Node" parent="." unique_id=568038806]
+
+[node name="GravityRaycasts" type="Node" parent="." unique_id=1550040829]
+
+[node name="Below" type="RayCast3D" parent="GravityRaycasts" unique_id=884191254]
+target_position = Vector3(0, -5, 0)
+
+[node name="Above" type="RayCast3D" parent="GravityRaycasts" unique_id=1369559158]
+target_position = Vector3(0, 5, 0)

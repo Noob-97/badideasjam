@@ -4,11 +4,13 @@ class_name Player
 @export var char_component: CharacterComponent
 @export var head: Node3D
 @export var camera: Camera3D
+@export var above: RayCast3D
 var prev_rotation: Vector3
 var prev_mouse_move: float
 var jump_buffer: bool = false
 var buffer_time: float = 0.1
 var prev_delta: float
+var rotate: bool = false
 
 func _input(event):
 	if event.is_action_pressed("unlock_mouse"):
@@ -39,6 +41,14 @@ func _physics_process(delta: float) -> void:
 		char_component.jump(delta)
 		await get_tree().create_timer(buffer_time).timeout
 		jump_buffer = false
+	if Input.is_action_just_pressed("change_gravity"):
+		char_component.gravity = -char_component.gravity
+		rotate = true
+		
+	if rotate and above.is_colliding():
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "rotation_degrees", Vector3(rotation_degrees.x, rotation_degrees.y, 180), 0.5)
+		rotate = false
 
 func _on_touched_ground() -> void:
 	if jump_buffer:
