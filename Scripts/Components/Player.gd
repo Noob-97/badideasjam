@@ -5,6 +5,7 @@ class_name Player
 @export var head: Node3D
 @export var camera: Camera3D
 @export var above: RayCast3D
+@export var player_mesh: MeshInstance3D
 var prev_rotation: Vector3
 var prev_mouse_move: float
 var jump_buffer: bool = false
@@ -33,8 +34,6 @@ func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	head.get_parent_node_3d().position = position + Vector3(0, 0.5, 0)
 	char_component.move_into_direction(input_dir, delta)
-	
-	#if (input_dir != Vector2(0,0)):
 	rotation.y = prev_rotation.y
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer = true
@@ -43,11 +42,21 @@ func _physics_process(delta: float) -> void:
 		jump_buffer = false
 	if Input.is_action_just_pressed("change_gravity"):
 		char_component.gravity = -char_component.gravity
+		char_component.jump_power = -char_component.jump_power
+		char_component.gravity_mode= not char_component.gravity_mode
+		if (char_component.gravity_mode):
+			up_direction = Vector3.DOWN
+		else:
+			up_direction = Vector3.UP
 		rotate = true
 		
 	if rotate and above.is_colliding():
-		var tween = get_tree().create_tween()
-		tween.tween_property(self, "rotation_degrees", Vector3(rotation_degrees.x, rotation_degrees.y, 180), 0.5)
+		#var tween = get_tree().create_twewen()
+		var deg = 0
+		if char_component.gravity_mode: 
+			deg = 180
+			
+		#tween.tween_property(player_mesh, "rotation_degrees", Vector3(rotation_degrees.x, rotation_degrees.y, deg), 0.5)
 		rotate = false
 
 func _on_touched_ground() -> void:

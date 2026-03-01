@@ -13,21 +13,22 @@ albedo_color = Color(0.58063054, 0.8642447, 0.41984212, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
 material = SubResource("StandardMaterial3D_bo1nx")
 
-[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "camera", "above")]
+[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "camera", "above", "player_mesh")]
 script = ExtResource("1_cvnsp")
 char_component = NodePath("CharacterComponent")
 head = NodePath("CameraHandler/head")
 camera = NodePath("CameraHandler/head/Camera3D")
 above = NodePath("GravityRaycasts/Above")
+player_mesh = NodePath("PlayerMesh")
 
 [node name="CameraHandler" type="Node3D" parent="." unique_id=1502466934]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030871034, 0.55472654, -0.07312393)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030871034, 0.55472654, -0.006180644)
 top_level = true
 
 [node name="head" type="Node3D" parent="CameraHandler" unique_id=1814881882]
 
 [node name="Camera3D" type="Camera3D" parent="CameraHandler/head" unique_id=587745314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0424573)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8180137)
 cull_mask = 1048063
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=532609218]
@@ -37,8 +38,7 @@ shape = SubResource("CapsuleShape3D_jjvhh")
 mesh = SubResource("CapsuleMesh_kry3j")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="PlayerMesh" unique_id=998606283]
-transform = Transform3D(0.7404924, 0, 0, 0, 0.28956592, 0, 0, 0, 0.7359649, 0.00684464, 0.5403266, -0.18323946)
-layers = 512
+transform = Transform3D(0.7404924, 0, 0, 0, 0.9090984, 0, 0, 0, 0.7359649, 0.00684464, 0.5403266, -0.18323946)
 mesh = SubResource("BoxMesh_8gbba")
 
 [node name="StairRaycasts" type="Node" parent="." unique_id=1543059935]

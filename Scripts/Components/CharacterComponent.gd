@@ -17,6 +17,7 @@ enum States {
 @export var max_health: float = 100
 @export var gravity: float = 9.8
 @export var fly_enabled: bool = false
+var gravity_mode: bool = false
 var jump_debounce: bool
 var gravity_disabled: bool = false
 var prev_state: States = States.IDLE
@@ -87,7 +88,7 @@ func damage(dmg):
 		health = max_health
 	took_damage.emit(dmg)
 func _physics_process(delta: float) -> void:
-	if not character_body.is_on_floor() and not fly_enabled and not gravity_disabled:
+	if (not character_body.is_on_floor() and not fly_enabled and not gravity_disabled):
 		character_body.velocity.y -= gravity * delta * 2
 	var vel = character_body.velocity
 	if fly_enabled:
