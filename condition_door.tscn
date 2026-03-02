@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://dsks2gb6e2he8"]
+
+[ext_resource type="Script" uid="uid://mte2hm8cbcje" path="res://Scripts/Components/ConditionDoor.gd" id="1_dric1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nl2g"]
+albedo_color = Color(0.82280815, 0.0019487179, 0.9805502, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mne6x"]
+material = SubResource("StandardMaterial3D_5nl2g")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4ciw"]
+
+[sub_resource type="Animation" id="Animation_5jff8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, -1.4862816)]
+}
+
+[sub_resource type="Animation" id="Animation_ehg42"]
+resource_name = "opening"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, 0), Vector3(-7.366, 1.465, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, -1.4862816), Vector3(-7.366, 1.465, -2.229)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rfkqk"]
+_data = {
+&"RESET": SubResource("Animation_5jff8"),
+&"opening": SubResource("Animation_ehg42")
+}
+
+[node name="ConditionDoor" type="Node3D" unique_id=884938672 node_paths=PackedStringArray("Triggers", "AnimationController")]
+script = ExtResource("1_dric1")
+Conditions = Array[bool]([false])
+Triggers = [NodePath("")]
+AnimationController = NodePath("ToggleOpening")
+
+[node name="door1" type="MeshInstance3D" parent="." unique_id=1917103730]
+transform = Transform3D(0.2638448, 0, 0, 0, 2.9815469, 0, 0, 0, 1.4468346, -7.3657155, 1.4649811, 0)
+mesh = SubResource("BoxMesh_mne6x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="door1" unique_id=1537689885]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door1/StaticBody3D" unique_id=1790312154]
+shape = SubResource("BoxShape3D_j4ciw")
+
+[node name="door2" type="MeshInstance3D" parent="." unique_id=1259974011]
+transform = Transform3D(0.2638448, 0, 0, 0, 2.9815469, 0, 0, 0, 1.4468346, -7.3657155, 1.4649811, -1.4862816)
+mesh = SubResource("BoxMesh_mne6x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="door2" unique_id=1371337959]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door2/StaticBody3D" unique_id=466056820]
+shape = SubResource("BoxShape3D_j4ciw")
+
+[node name="ToggleOpening" type="AnimationPlayer" parent="." unique_id=1452163427]
+libraries/ = SubResource("AnimationLibrary_rfkqk")

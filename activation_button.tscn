@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://3orsrkpqtgd2"]
+
+[ext_resource type="Script" uid="uid://d0lb214s4ttl6" path="res://Scripts/ActivationButton.gd" id="1_pa3yf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ehg42"]
+size = Vector3(1.8947144, 0.31384277, 1.930542)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mne6x"]
+albedo_color = Color(0.9927681, 0, 0.28342298, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j4ciw"]
+material = SubResource("StandardMaterial3D_mne6x")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jff8"]
+size = Vector3(1.8900757, 0.15124512, 1.921875)
+
+[node name="ActivationButton" type="Area3D" unique_id=1154767425]
+script = ExtResource("1_pa3yf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=162083667]
+transform = Transform3D(1, 0, 0, 0, 1.0000033, 0, 0, 0, 1, 0.0030212402, 0.08184624, -0.0010375977)
+shape = SubResource("BoxShape3D_ehg42")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1103687124]
+transform = Transform3D(1.8922477, 0, 0, 0, 0.14204694, 0, 0, 0, 1.9251115, 0, 0, 0)
+mesh = SubResource("BoxMesh_j4ciw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1517327000]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1814687222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0069885254, -0.0025024414, 0.0009765625)
+shape = SubResource("BoxShape3D_5jff8")
