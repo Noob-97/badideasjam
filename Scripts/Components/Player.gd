@@ -17,6 +17,8 @@ var rotate: bool = false
 var grabbing: bool = false
 var lerp_progress = 0.0
 var lerp_step = 0.01
+var throw = 0.0
+var throw_step = 0.5
 
 signal ChangedGravity
 
@@ -41,8 +43,14 @@ func _unhandled_input(event):
 			head.get_parent().rotate_y(-MouseVector.x * Settings.SENSITIVITY / 1000)
 			head.rotate_x(-MouseVector.y * Settings.SENSITIVITY / 1000)
 		prev_rotation = head.get_parent_node_3d().rotation
-		print(head.rotation_degrees.x)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-75), deg_to_rad(75))
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			throw += throw_step
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			throw -= throw_step
+		throw = clamp(throw, 0, 10)
+		print(throw)
 func _physics_process(delta: float) -> void:
 	prev_delta = delta
 	var input_dir
@@ -91,6 +99,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("grab"):
 		if grabbing:
 			GrabSpot.get_child(0).maintain_local_pos = false
+			GrabSpot.get_child(0).linear_velocity = -basis.z * throw
+			GrabSpot.get_child(0).linear_velocity.y += -head.basis.z.y * throw * 3.5
+			print(-basis.z * throw) # FORWARD VECTOR times THROW FORCE
 			GrabSpot.get_child(0).reparent(get_node("/root/Node3D"))
 			grabbing = false
 		elif not grabbing and GrabRay.is_colliding():
