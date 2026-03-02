@@ -15,6 +15,8 @@ var buffer_time: float = 0.1
 var prev_delta: float
 var rotate: bool = false
 var grabbing: bool = false
+var lerp_progress = 0.0
+var lerp_step = 0.01
 
 signal ChangedGravity
 
@@ -29,14 +31,25 @@ func _input(event):
 func _unhandled_input(event):
 	if (event is InputEventMouseMotion):
 		var MouseVector = event.relative
-		prev_mouse_move = -MouseVector.x * Settings.SENSITIVITY / 1000
-		head.get_parent().rotate_y(-MouseVector.x * Settings.SENSITIVITY / 1000)
-		head.rotate_x(-MouseVector.y * Settings.SENSITIVITY / 1000)
+		#prev_mouse_move = -MouseVector.x * Settings.SENSITIVITY / 1000
+		if char_component.gravity_mode:
+			prev_mouse_move = MouseVector.x * Settings.SENSITIVITY / 1000
+			head.get_parent().rotate_y(MouseVector.x * Settings.SENSITIVITY / 1000)
+			head.rotate_x(MouseVector.y * Settings.SENSITIVITY / 1000)
+		else:
+			prev_mouse_move = -MouseVector.x * Settings.SENSITIVITY / 1000
+			head.get_parent().rotate_y(-MouseVector.x * Settings.SENSITIVITY / 1000)
+			head.rotate_x(-MouseVector.y * Settings.SENSITIVITY / 1000)
 		prev_rotation = head.get_parent_node_3d().rotation
+		print(head.rotation_degrees.x)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-75), deg_to_rad(75))
 func _physics_process(delta: float) -> void:
-	prev_delta = delta 
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
+	prev_delta = delta
+	var input_dir
+	if char_component.gravity_mode:
+		input_dir = Input.get_vector("right", "left", "forward", "backward")
+	else:
+		input_dir = Input.get_vector("left", "right", "forward", "backward")
 	head.get_parent_node_3d().position = position + Vector3(0, 0.5, 0)
 	char_component.move_into_direction(input_dir, delta)
 	rotation.y = prev_rotation.y
@@ -59,13 +72,22 @@ func _physics_process(delta: float) -> void:
 			rotate = true
 		
 	if rotate and above.is_colliding():
-		#var tween = get_tree().create_twewen()
-		var deg = 0
+		var init_deg = player_mesh.rotation_degrees
+		var deg = 0.0
 		if char_component.gravity_mode: 
-			deg = 180
+			deg = 180.0
+
+		## LERP METHOD
+		lerp_progress += lerp_step
+		var progress = lerp(init_deg.z, deg, lerp_progress)
+		player_mesh.rotation_degrees.z = progress
+		head.rotation_degrees.z = progress
+		if progress >= 180 or progress <= 0:
+			player_mesh.rotation_degrees.z = deg
+			head.rotation_degrees.z = deg
+			lerp_progress = 0.0
+			rotate = false
 			
-		#tween.tween_property(player_mesh, "rotation_degrees", Vector3(rotation_degrees.x, rotation_degrees.y, deg), 0.5)
-		rotate = false
 	if Input.is_action_just_pressed("grab"):
 		if grabbing:
 			GrabSpot.get_child(0).maintain_local_pos = false
@@ -88,5 +110,6 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	char_component.touched_ground.connect(_on_touched_ground)
 	char_component.died.connect(dying_behaviour)
+	
 	
 	
