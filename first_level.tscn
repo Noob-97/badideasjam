@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://bi5nw562aceo6" path="res://player.tscn" id="1_5puvx"]
 [ext_resource type="Script" uid="uid://5jxlp4s0y0k0" path="res://Scripts/rotate.gd" id="1_fnyhn"]
 [ext_resource type="Script" uid="uid://wt73dsylltvo" path="res://Scripts/RBBox.gd" id="3_7m365"]
+[ext_resource type="Script" uid="uid://d0lb214s4ttl6" path="res://Scripts/ActivationButton.gd" id="4_5nl2g"]
+[ext_resource type="Script" uid="uid://mte2hm8cbcje" path="res://Scripts/Components/ConditionDoor.gd" id="5_mne6x"]
+[ext_resource type="Script" uid="uid://c7tv2ra4vonos" path="res://Scripts/DamageFloor.gd" id="6_j4ciw"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ccbq8"]
 
@@ -20,6 +23,95 @@ albedo_color = Color(0.89996266, 0.512195, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5nl2g"]
 material = SubResource("StandardMaterial3D_7m365")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mne6x"]
+albedo_color = Color(0.9927681, 0, 0.28342298, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j4ciw"]
+material = SubResource("StandardMaterial3D_mne6x")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jff8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ehg42"]
+size = Vector3(1, 2.3408203, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nl2g"]
+albedo_color = Color(0.82280815, 0.0019487179, 0.9805502, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mne6x"]
+material = SubResource("StandardMaterial3D_5nl2g")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4ciw"]
+
+[sub_resource type="Animation" id="Animation_5jff8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, -1.4862816)]
+}
+
+[sub_resource type="Animation" id="Animation_ehg42"]
+resource_name = "opening"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, 0), Vector3(-7.366, 1.465, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.3657155, 1.4649811, -1.4862816), Vector3(-7.366, 1.465, -2.229)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rfkqk"]
+_data = {
+&"RESET": SubResource("Animation_5jff8"),
+&"opening": SubResource("Animation_ehg42")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ciw"]
+albedo_color = Color(0.79731816, 0.13092327, 9.62615e-08, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5jff8"]
+material = SubResource("StandardMaterial3D_j4ciw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfkqk"]
+size = Vector3(3.88385, 0.40628052, 4.3094482)
 
 [node name="Node3D" type="Node3D" unique_id=1201078613]
 
@@ -68,3 +160,67 @@ shape = SubResource("BoxShape3D_fnyhn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RBBox/RigidBody3D" unique_id=346267904]
 mesh = SubResource("BoxMesh_5nl2g")
+
+[node name="ActivationButton" type="Node3D" parent="." unique_id=1425391545]
+transform = Transform3D(2.9758344, 0, 0, 0, 0.24770683, 0, 0, 0, 2.962863, 0, 0.12039828, 5.170456)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ActivationButton" unique_id=1294455283]
+mesh = SubResource("BoxMesh_j4ciw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ActivationButton" unique_id=1999788829]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationButton/StaticBody3D" unique_id=1715923011]
+shape = SubResource("BoxShape3D_5jff8")
+
+[node name="Area3D" type="Area3D" parent="ActivationButton" unique_id=952696901]
+script = ExtResource("4_5nl2g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationButton/Area3D" unique_id=1636974339]
+transform = Transform3D(1, 0, 0, 0, 1.0000033, 0, 0, 0, 1, 0, 0.67041016, 0)
+shape = SubResource("BoxShape3D_ehg42")
+
+[node name="ConditionDoor" type="Node3D" parent="." unique_id=1259393883 node_paths=PackedStringArray("Triggers", "AnimationController")]
+script = ExtResource("5_mne6x")
+Conditions = Array[bool]([false])
+Triggers = [NodePath("../ActivationButton/Area3D")]
+AnimationController = NodePath("ToggleOpening")
+
+[node name="door1" type="MeshInstance3D" parent="ConditionDoor" unique_id=1742920027]
+transform = Transform3D(0.2638448, 0, 0, 0, 2.9815469, 0, 0, 0, 1.4468346, -7.3657155, 1.4649811, 0)
+mesh = SubResource("BoxMesh_mne6x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ConditionDoor/door1" unique_id=555001561]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConditionDoor/door1/StaticBody3D" unique_id=1821191907]
+shape = SubResource("BoxShape3D_j4ciw")
+
+[node name="door2" type="MeshInstance3D" parent="ConditionDoor" unique_id=789490331]
+transform = Transform3D(0.2638448, 0, 0, 0, 2.9815469, 0, 0, 0, 1.4468346, -7.3657155, 1.4649811, -1.4862816)
+mesh = SubResource("BoxMesh_mne6x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ConditionDoor/door2" unique_id=1908139647]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConditionDoor/door2/StaticBody3D" unique_id=278254099]
+shape = SubResource("BoxShape3D_j4ciw")
+
+[node name="ToggleOpening" type="AnimationPlayer" parent="ConditionDoor" unique_id=1090999886]
+libraries/ = SubResource("AnimationLibrary_rfkqk")
+
+[node name="DamageFloor" type="Node3D" parent="." unique_id=2112255696]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DamageFloor" unique_id=379697086]
+transform = Transform3D(3.8741288, 0, 0, 0, 0.25672984, 0, 0, 0, 4.281932, 0, 0, 0)
+mesh = SubResource("BoxMesh_5jff8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DamageFloor" unique_id=614684785]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageFloor/StaticBody3D" unique_id=939594298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0074768066, 0)
+shape = SubResource("BoxShape3D_rfkqk")
+
+[node name="Area3D" type="Area3D" parent="DamageFloor" unique_id=1254396815]
+script = ExtResource("6_j4ciw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageFloor/Area3D" unique_id=711076367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066604614, 0)
+shape = SubResource("BoxShape3D_rfkqk")

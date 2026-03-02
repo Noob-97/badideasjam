@@ -81,7 +81,12 @@ func _on_touched_ground() -> void:
 	if jump_buffer:
 		char_component.jump(prev_delta)
 		jump_buffer = false
+func dying_behaviour() -> void:
+	print("Player Died. Restarting current scene.")
+	get_tree().call_deferred("reload_current_scene")
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	char_component.touched_ground.connect(_on_touched_ground)
+	char_component.died.connect(dying_behaviour)
+	
 	
