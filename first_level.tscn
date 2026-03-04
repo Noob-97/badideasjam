@@ -63,3 +63,8 @@ Triggers = [NodePath("../ActivationButton")]
 
 [node name="ActivationButton" parent="." unique_id=1154767425 instance=ExtResource("4_5jff8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.210685, 0, 4.7201486)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=2035500014]
+transform = Transform3D(5.7850237, 0, 1.4745839, 0, 5.97, 0, -1.474584, 0, 5.785023, 3.5068545, 3.8103824, -4.288)
+text = "No more levels left.
+You won!!! : D"

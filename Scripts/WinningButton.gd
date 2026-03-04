@@ -9,4 +9,7 @@ func _ready() -> void:
 func CHECK_BODIES(body):
 	if body is Player:
 		print("LEVEL COMPLETED! Going to next level: " + NextLevelScene + " (" + LevelsFolder + ")")
-		get_tree().change_scene_to_file("res://" + LevelsFolder + "/" + NextLevelScene)
+		if LevelsFolder.is_empty():
+			get_tree().call_deferred("change_scene_to_file", "res://" + NextLevelScene + ".tscn")
+		else:
+			get_tree().call_deferred("change_scene_to_file", "res://" + LevelsFolder + "/" + NextLevelScene  + ".tscn")

@@ -329,6 +329,8 @@ mesh = SubResource("BoxMesh_hsw0e")
 
 [node name="WinningPlate" parent="." unique_id=558780097 instance=ExtResource("5_gy26g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 6.045556, -32.57704)
+LevelsFolder = ""
+NextLevelScene = "first_level"
 
 [node name="ActivationButton4" parent="." unique_id=1495196433 instance=ExtResource("3_bvd1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.307512, 6.1256385, -32.872246)
@@ -352,6 +354,23 @@ mesh = SubResource("BoxMesh_hy5c2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar0/StaticBody3D" unique_id=409518528]
 shape = SubResource("BoxShape3D_2kkp4")
+
+[node name="CONTROLS" type="Label" parent="." unique_id=346599181]
+anchors_preset = -1
+anchor_left = 0.0234375
+anchor_top = 0.040123455
+anchor_right = 0.9696181
+anchor_bottom = 0.9444444
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "WASD to move
+right-click to switch gravities
+E to grab
+
+get to the end (green plate)!"
+metadata/_edit_use_anchors_ = true
 
 [editable path="RBBox3"]
 [editable path="RBBox4"]
