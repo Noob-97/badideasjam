@@ -6,6 +6,7 @@ class_name Player
 @export var GrabSpot : Node3D
 @export var camera: Camera3D
 @export var above: RayCast3D
+@export var below: RayCast3D
 @export var GrabRay: RayCast3D
 @export var player_mesh: MeshInstance3D
 var prev_rotation: Vector3
@@ -19,6 +20,7 @@ var lerp_progress = 0.0
 var lerp_step = 0.01
 var throw = 0.0
 var throw_step = 0.5
+var spins = 0
 
 signal ChangedGravity
 
@@ -50,8 +52,14 @@ func _unhandled_input(event):
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			throw -= throw_step
 		throw = clamp(throw, 0, 10)
-		print(throw)
+		#print(throw)
 func _physics_process(delta: float) -> void:
+	var checking_for_collision
+	if char_component.gravity_mode:
+		checking_for_collision = above.is_colliding()
+	else:
+		checking_for_collision = below.is_colliding()
+		
 	prev_delta = delta
 	var input_dir
 	if char_component.gravity_mode:
@@ -66,31 +74,32 @@ func _physics_process(delta: float) -> void:
 		char_component.jump(delta)
 		await get_tree().create_timer(buffer_time).timeout
 		jump_buffer = false
-	if Input.is_action_just_pressed("change_gravity"):
+	if Input.is_action_just_pressed("change_gravity") and checking_for_collision:
 		ChangedGravity.emit()
+		spins += 1
 		
-		if not Input.is_action_pressed("retain_gravity"):
-			char_component.gravity = -char_component.gravity
-			char_component.jump_power = -char_component.jump_power
-			char_component.gravity_mode= not char_component.gravity_mode
-			if (char_component.gravity_mode):
-				up_direction = Vector3.DOWN
-			else:
-				up_direction = Vector3.UP
-			rotate = true
-		
-	if rotate and above.is_colliding():
+		#if not Input.is_action_pressed("retain_gravity"):
+		char_component.gravity = -char_component.gravity
+		char_component.jump_power = -char_component.jump_power
+		char_component.gravity_mode= not char_component.gravity_mode
+		if (char_component.gravity_mode):
+			up_direction = Vector3.DOWN
+		else:
+			up_direction = Vector3.UP
+		rotate = true
+	
+	#if rotate and above.is_colliding():
+	if rotate:
 		var init_deg = player_mesh.rotation_degrees
-		var deg = 0.0
-		if char_component.gravity_mode: 
-			deg = 180.0
+		var deg = 180.0 * spins
+		#print(init_deg)
 
 		## LERP METHOD
 		lerp_progress += lerp_step
 		var progress = lerp(init_deg.z, deg, lerp_progress)
 		player_mesh.rotation_degrees.z = progress
 		head.rotation_degrees.z = progress
-		if progress >= 180 or progress <= 0:
+		if progress == 180.0 * spins:
 			player_mesh.rotation_degrees.z = deg
 			head.rotation_degrees.z = deg
 			lerp_progress = 0.0
@@ -98,14 +107,22 @@ func _physics_process(delta: float) -> void:
 			
 	if Input.is_action_just_pressed("grab"):
 		if grabbing:
-			GrabSpot.get_child(0).maintain_local_pos = false
-			GrabSpot.get_child(0).linear_velocity = -basis.z * throw
-			GrabSpot.get_child(0).linear_velocity.y += -head.basis.z.y * throw * 3.5
-			print(-basis.z * throw) # FORWARD VECTOR times THROW FORCE
+			GrabSpot.get_child(0).maintain_local_pos = false	
+			if GrabSpot.get_child(0).Throwable:
+				GrabSpot.get_child(0).linear_velocity = -basis.z * throw
+				GrabSpot.get_child(0).linear_velocity.y += -head.basis.z.y * throw * 3.5
+				print(-basis.z * throw) # FORWARD VECTOR times THROW FORCE
 			GrabSpot.get_child(0).reparent(get_node("/root/Node3D"))
 			grabbing = false
 		elif not grabbing and GrabRay.is_colliding():
 			if GrabRay.get_collider() is RBBox:
+				# Set local gravity after grabbing
+				if char_component.gravity_mode:
+					GrabRay.get_collider().gravity_scale = -1
+				else:
+					GrabRay.get_collider().gravity_scale = 1
+				GrabRay.get_collider().UPDATE_COLORS()
+				
 				GrabRay.get_collider().maintain_local_pos = true
 				GrabRay.get_collider().reparent(GrabSpot)
 				grabbing = true

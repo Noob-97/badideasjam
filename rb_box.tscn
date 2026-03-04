@@ -2,18 +2,30 @@
 
 [ext_resource type="Script" uid="uid://wt73dsylltvo" path="res://Scripts/RBBox.gd" id="1_8ooh3"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ooh3"]
+resource_local_to_scene = true
+albedo_color = Color(0.8548469, 0.48452926, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb7uo"]
+resource_local_to_scene = true
+albedo_color = Color(6.160736e-06, 0.63036543, 0.918874, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_fnyhn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m365"]
-albedo_color = Color(0.89996266, 0.512195, 0, 1)
+albedo_color = Color(0.8548469, 0.48452926, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5nl2g"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_7m365")
 
 [node name="RBBox" type="Node3D" unique_id=1971502724]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=611877962]
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=611877962 node_paths=PackedStringArray("mesh")]
 script = ExtResource("1_8ooh3")
+mesh = NodePath("MeshInstance3D")
+orange = SubResource("StandardMaterial3D_8ooh3")
+blue = SubResource("StandardMaterial3D_hb7uo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1087501353]
 shape = SubResource("BoxShape3D_fnyhn")

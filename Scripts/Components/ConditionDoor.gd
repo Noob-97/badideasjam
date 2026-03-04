@@ -8,6 +8,7 @@ var opened := false
 func _ready() -> void:
 	for i in Triggers.size():
 		Triggers[i].ConditionUpdated.connect(UpdateCondition.bind(i))
+	CHECK_CONDITIONS()
 
 func UpdateCondition(value, index):
 	Conditions[index] = value
