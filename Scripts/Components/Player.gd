@@ -1,6 +1,7 @@
 extends CharacterBody3D
 class_name Player
 @export var GravityRetainEnabled : bool
+@export var SwitchGravityWhileGrabbingEnabled: bool
 @export_group("Configuration")
 @export var char_component: CharacterComponent
 @export var head: Node3D
@@ -76,12 +77,19 @@ func _physics_process(delta: float) -> void:
 		await get_tree().create_timer(buffer_time).timeout
 		jump_buffer = false
 	if Input.is_action_just_pressed("change_gravity") and checking_for_collision:
-		ChangedGravity.emit()
-		var condition = true
-		if GravityRetainEnabled:
-			condition = not Input.is_action_pressed("retain_gravity")
+		if SwitchGravityWhileGrabbingEnabled:
+			ChangedGravity.emit()
+		else:
+			if not grabbing:
+				ChangedGravity.emit()
 		
-		if condition:
+		var condition : Array[bool]
+		if GravityRetainEnabled:
+			condition.append(not Input.is_action_pressed("retain_gravity"))
+		if not SwitchGravityWhileGrabbingEnabled:
+			condition.append(not grabbing)
+		
+		if condition.find(false) == -1:
 			spins += 1
 			char_component.gravity = -char_component.gravity
 			char_component.jump_power = -char_component.jump_power

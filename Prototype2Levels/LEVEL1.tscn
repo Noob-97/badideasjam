@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://d1ga2xb8t87br"]
+
+[ext_resource type="PackedScene" uid="uid://bi5nw562aceo6" path="res://player.tscn" id="1_44dac"]
+[ext_resource type="PackedScene" uid="uid://c7auaea3vkgfx" path="res://rb_box.tscn" id="2_lrcor"]
+[ext_resource type="PackedScene" uid="uid://cmxa01va1hgks" path="res://damage_floor.tscn" id="3_6pja8"]
+[ext_resource type="PackedScene" uid="uid://dsks2gb6e2he8" path="res://condition_door.tscn" id="4_brjcj"]
+[ext_resource type="PackedScene" uid="uid://3orsrkpqtgd2" path="res://activation_button.tscn" id="5_tajw6"]
+[ext_resource type="PackedScene" uid="uid://m4utlfhopnp4" path="res://winning_button.tscn" id="6_n2n3r"]
+[ext_resource type="Script" uid="uid://c3prcul81sbbp" path="res://Scripts/Rules_Text.gd" id="6_tajw6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lrcor"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_bottom_color = Color(0.63797045, 0.66127646, 0.74390274, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_kghxd"]
+sky_material = SubResource("ProceduralSkyMaterial_lrcor")
+
+[sub_resource type="Environment" id="Environment_6pja8"]
+background_mode = 2
+sky = SubResource("Sky_kghxd")
+tonemap_mode = 2
+
+[node name="Node3D" type="Node3D" unique_id=942011180]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1297982087]
+environment = SubResource("Environment_6pja8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=499734696]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 10.675654, 0)
+
+[node name="Map" type="CSGCombiner3D" parent="." unique_id=323364799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -3)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map" unique_id=1302795797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+size = Vector3(24, 1, 13)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map" unique_id=1519524483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 18, -7.5)
+size = Vector3(24, 1, 28)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map" unique_id=922588407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -31)
+size = Vector3(32, 1, 13)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map" unique_id=1271651051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 14.5, -27.5)
+size = Vector3(24, 8, 20)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map" unique_id=839084137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -12.833315)
+size = Vector3(1, 25, 39)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map" unique_id=527668023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 6, -15.5)
+size = Vector3(1, 25, 44)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map" unique_id=229697622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -3.5, 0)
+size = Vector3(24, 6, 13)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map" unique_id=800908264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -3.5, -31)
+size = Vector3(24, 6, 13)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map" unique_id=991126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 9, 7)
+size = Vector3(24, 19, 1)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map" unique_id=2064933244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 9, -38)
+size = Vector3(24, 19, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map" unique_id=544810998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -36.589314)
+size = Vector3(1, 25, 2.7768555)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Map" unique_id=1135243302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 10.967651, -35.09139)
+size = Vector3(1, 15.064697, 5.772705)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Map" unique_id=878501299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.030518, 6.0241423, -31)
+size = Vector3(7, 1, 13)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Map" unique_id=1816066308]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.030518, 3.5241423, -24)
+size = Vector3(7, 6, 1)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Map" unique_id=1886398760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.030518, 3.5241423, -38)
+size = Vector3(7, 6, 1)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Map" unique_id=325370996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.030518, 3.5241423, -31)
+size = Vector3(1, 6, 15)
+
+[node name="Player" parent="." unique_id=1187361912 instance=ExtResource("1_44dac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0)
+
+[node name="RigidBody3D" parent="." unique_id=611877962 instance=ExtResource("2_lrcor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -3)
+
+[node name="DamageFloor" parent="." unique_id=1209392795 instance=ExtResource("3_6pja8")]
+transform = Transform3D(6.7320004, 0, 0, 0, 1, 0, 0, 0, 4.2, 5, -6.3528504, -18.64661)
+
+[node name="RBBox" parent="." unique_id=1955690576 instance=ExtResource("2_lrcor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, -5)
+
+[node name="RBBox2" parent="." unique_id=691590607 instance=ExtResource("2_lrcor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -6)
+
+[node name="RBBox3" parent="." unique_id=964359816 instance=ExtResource("2_lrcor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, -1)
+
+[node name="ConditionDoor" parent="." unique_id=884938672 node_paths=PackedStringArray("Triggers") instance=ExtResource("4_brjcj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5625124, -36)
+Triggers = [NodePath("../ActivationButton")]
+
+[node name="ActivationButton" parent="." unique_id=1154767425 instance=ExtResource("5_tajw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.715041, 0.5710206, -31.537804)
+
+[node name="WinningPlate" parent="." unique_id=1684407935 instance=ExtResource("6_n2n3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.54737604, -37)
+LevelsFolder = "Prototype2Levels"
+NextLevelScene = "LEVEL2"
+
+[node name="RULES" type="Label" parent="." unique_id=236201320]
+anchors_preset = -1
+anchor_left = 0.0234375
+anchor_top = 0.040123455
+anchor_right = 0.9696181
+anchor_bottom = 0.9444444
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+script = ExtResource("6_tajw6")
+CurrentLevel = 2
+LevelsFolder = "Prototype2Levels"
+metadata/_edit_use_anchors_ = true

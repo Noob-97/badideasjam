@@ -5,18 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://3orsrkpqtgd2" path="res://activation_button.tscn" id="3_bvd1t"]
 [ext_resource type="PackedScene" uid="uid://c7auaea3vkgfx" path="res://rb_box.tscn" id="4_gy26g"]
 [ext_resource type="PackedScene" uid="uid://m4utlfhopnp4" path="res://winning_button.tscn" id="5_gy26g"]
+[ext_resource type="Script" uid="uid://c3prcul81sbbp" path="res://Scripts/Rules_Text.gd" id="6_c2d4j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ymwxv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_bottom_color = Color(0.63797045, 0.66127646, 0.74390274, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_kghxd"]
+[sub_resource type="Sky" id="Sky_gy26g"]
 sky_material = SubResource("ProceduralSkyMaterial_ymwxv")
 
 [sub_resource type="Environment" id="Environment_bvd1t"]
 background_mode = 2
-sky = SubResource("Sky_kghxd")
+sky = SubResource("Sky_gy26g")
 tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bvd1t"]
@@ -62,33 +63,6 @@ cull_mode = 2
 lightmap_size_hint = Vector2i(12, 12)
 material = SubResource("StandardMaterial3D_hsw0e")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gy26g"]
-resource_local_to_scene = true
-albedo_color = Color(0.8548469, 0.48452926, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iltmt"]
-resource_local_to_scene = true
-albedo_color = Color(6.160736e-06, 0.63036543, 0.918874, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m365"]
-albedo_color = Color(0.8548469, 0.48452926, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hsw0e"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_7m365")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33qmm"]
-resource_local_to_scene = true
-albedo_color = Color(0.8548469, 0.48452926, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1s2xv"]
-resource_local_to_scene = true
-albedo_color = Color(6.160736e-06, 0.63036543, 0.918874, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7donh"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_7m365")
-
 [sub_resource type="BoxMesh" id="BoxMesh_hy5c2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2kkp4"]
@@ -113,7 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0036621094, -0.004852295, 0
 shape = SubResource("BoxShape3D_gy26g")
 
 [node name="NEGATIVE0" type="MeshInstance3D" parent="." unique_id=852925640]
-transform = Transform3D(27.867723, 0, 0, 0, -1, 2.3800073e-06, 0, -8.742278e-08, -27.22411, 7.922674, 15.17781, -17.848135)
+transform = Transform3D(27.867723, 0, 0, 0, -1, 2.3800073e-06, 0, -8.742278e-08, -27.22411, 7.899355, 15.13462, -17.835075)
 mesh = SubResource("PlaneMesh_bvd1t")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NEGATIVE0" unique_id=1920065106]
@@ -124,7 +98,6 @@ shape = SubResource("BoxShape3D_gy26g")
 
 [node name="Player" parent="." unique_id=1187361912 instance=ExtResource("1_ymwxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1767435, 1.1817255, 1.730999)
-GravityRetainEnabled = true
 
 [node name="ConditionDoor" parent="." unique_id=884938672 node_paths=PackedStringArray("Triggers") instance=ExtResource("2_kghxd")]
 transform = Transform3D(-4.371139e-08, 8.742278e-08, 1, 0, -1, 8.742278e-08, 1, 3.821371e-15, 4.371139e-08, 0.7334919, 15.044, -12.548267)
@@ -319,33 +292,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.317108, 6.698759, -36.7337
 
 [node name="RBBox3" parent="." unique_id=365574199 instance=ExtResource("4_gy26g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.328175, 6.698757, -29.381468)
-
-[node name="RigidBody3D" parent="RBBox3" index="0" unique_id=611877962]
-gravity_scale = -1.0
-orange = SubResource("StandardMaterial3D_gy26g")
-blue = SubResource("StandardMaterial3D_iltmt")
-
-[node name="MeshInstance3D" parent="RBBox3/RigidBody3D" index="1" unique_id=1225029045]
-mesh = SubResource("BoxMesh_hsw0e")
+InverseGravity = true
 
 [node name="WinningPlate" parent="." unique_id=558780097 instance=ExtResource("5_gy26g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 6.045556, -32.57704)
-LevelsFolder = ""
-NextLevelScene = "first_level"
+LevelsFolder = "Prototype2Levels"
+NextLevelScene = "LEVEL1"
 
 [node name="ActivationButton4" parent="." unique_id=1495196433 instance=ExtResource("3_bvd1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.307512, 6.1256385, -32.872246)
 
 [node name="RBBox4" parent="." unique_id=1645639327 instance=ExtResource("4_gy26g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.529697, 6.698757, -23.389006)
-
-[node name="RigidBody3D" parent="RBBox4" index="0" unique_id=611877962]
-gravity_scale = -1.0
-orange = SubResource("StandardMaterial3D_33qmm")
-blue = SubResource("StandardMaterial3D_1s2xv")
-
-[node name="MeshInstance3D" parent="RBBox4/RigidBody3D" index="1" unique_id=1225029045]
-mesh = SubResource("BoxMesh_7donh")
+InverseGravity = true
 
 [node name="Pillar0" type="MeshInstance3D" parent="." unique_id=2119366252]
 transform = Transform3D(7.2172346, 0, 0, 0, 7.0297017, 0, 0, 0, 4.169036, 24.685389, 12.750537, -23.138653)
@@ -356,7 +315,7 @@ mesh = SubResource("BoxMesh_hy5c2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar0/StaticBody3D" unique_id=409518528]
 shape = SubResource("BoxShape3D_2kkp4")
 
-[node name="CONTROLS" type="Label" parent="." unique_id=346599181]
+[node name="RULES" type="Label" parent="." unique_id=346599181]
 anchors_preset = -1
 anchor_left = 0.0234375
 anchor_top = 0.040123455
@@ -366,12 +325,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "WASD to move
-right-click to switch gravities
-E to grab
-
-get to the end (green plate)!"
+script = ExtResource("6_c2d4j")
+CurrentLevel = 1
+LevelsFolder = "Prototype2Levels"
+BasicControls = true
 metadata/_edit_use_anchors_ = true
-
-[editable path="RBBox3"]
-[editable path="RBBox4"]

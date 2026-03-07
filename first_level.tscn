@@ -16,6 +16,14 @@ size = Vector3(2, 0.001, 2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fnyhn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ciw"]
+resource_local_to_scene = true
+albedo_color = Color(0.85490197, 0.4862745, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jff8"]
+resource_local_to_scene = true
+albedo_color = Color(6.160736e-06, 0.63036543, 0.918874, 1)
+
 [node name="Node3D" type="Node3D" unique_id=1201078613]
 
 [node name="POSITIVE" type="MeshInstance3D" parent="." unique_id=755494159]
@@ -54,6 +62,8 @@ shape = SubResource("BoxShape3D_5puvx")
 
 [node name="RBBox" parent="." unique_id=1971502724 instance=ExtResource("3_j4ciw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0453916, 4.138065, -4.482267)
+orange = SubResource("StandardMaterial3D_j4ciw")
+blue = SubResource("StandardMaterial3D_5jff8")
 
 [node name="ConditionDoor" parent="." unique_id=884938672 node_paths=PackedStringArray("Triggers") instance=ExtResource("5_ehg42")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8388424, 0.037714005, -2.0971546)
