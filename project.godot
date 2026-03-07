@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Settings="*uid://cniw17ukhe8qp"
 MusicController="*uid://d1saryg3tj8js"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/customizable-crosshair-lite/plugin.cfg")
+
 [input]
 
 left={

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dauuesnn0ndef" path="res://Scripts/Components/Player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://cob2eeky0t3ym" path="res://Scripts/Components/CharacterComponent.gd" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://c26x74n6mgfm3" path="res://addons/customizable-crosshair-lite/crosshair.gd" id="3_i3pqv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jjvhh"]
 
@@ -77,3 +78,20 @@ target_position = Vector3(0, 5, 0)
 
 [node name="GrabSpot" type="Node3D" parent="." unique_id=1938648998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3260067)
+
+[node name="Crosshair" type="Control" parent="." unique_id=1593391003]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("3_i3pqv")
+crosshairThickness = 2.0
+crosshairSize = 10.0
+crosshairColor = Color(0, 0, 0, 0.5)
+metadata/_custom_type_script = "uid://c26x74n6mgfm3"
