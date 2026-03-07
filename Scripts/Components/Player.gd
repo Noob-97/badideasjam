@@ -1,5 +1,6 @@
 extends CharacterBody3D
 class_name Player
+@export var GravityRetainEnabled : bool
 @export_group("Configuration")
 @export var char_component: CharacterComponent
 @export var head: Node3D
@@ -76,17 +77,20 @@ func _physics_process(delta: float) -> void:
 		jump_buffer = false
 	if Input.is_action_just_pressed("change_gravity") and checking_for_collision:
 		ChangedGravity.emit()
-		spins += 1
+		var condition = true
+		if GravityRetainEnabled:
+			condition = not Input.is_action_pressed("retain_gravity")
 		
-		#if not Input.is_action_pressed("retain_gravity"):
-		char_component.gravity = -char_component.gravity
-		char_component.jump_power = -char_component.jump_power
-		char_component.gravity_mode= not char_component.gravity_mode
-		if (char_component.gravity_mode):
-			up_direction = Vector3.DOWN
-		else:
-			up_direction = Vector3.UP
-		rotate = true
+		if condition:
+			spins += 1
+			char_component.gravity = -char_component.gravity
+			char_component.jump_power = -char_component.jump_power
+			char_component.gravity_mode= not char_component.gravity_mode
+			if (char_component.gravity_mode):
+				up_direction = Vector3.DOWN
+			else:
+				up_direction = Vector3.UP
+			rotate = true
 	
 	#if rotate and above.is_colliding():
 	if rotate:
