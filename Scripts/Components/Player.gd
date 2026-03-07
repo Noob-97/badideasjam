@@ -130,9 +130,9 @@ func _physics_process(delta: float) -> void:
 			if GrabRay.get_collider() is RBBox:
 				# Set local gravity after grabbing
 				if char_component.gravity_mode:
-					GrabRay.get_collider().gravity_scale = -1
+					GrabRay.get_collider().gravity_scale = - abs(GrabRay.get_collider().gravity_scale)
 				else:
-					GrabRay.get_collider().gravity_scale = 1
+					GrabRay.get_collider().gravity_scale = abs(GrabRay.get_collider().gravity_scale)
 				GrabRay.get_collider().UPDATE_COLORS()
 				
 				GrabRay.get_collider().maintain_local_pos = true

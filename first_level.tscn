@@ -16,14 +16,6 @@ size = Vector3(2, 0.001, 2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fnyhn"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ciw"]
-resource_local_to_scene = true
-albedo_color = Color(0.85490197, 0.4862745, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jff8"]
-resource_local_to_scene = true
-albedo_color = Color(6.160736e-06, 0.63036543, 0.918874, 1)
-
 [node name="Node3D" type="Node3D" unique_id=1201078613]
 
 [node name="POSITIVE" type="MeshInstance3D" parent="." unique_id=755494159]
@@ -60,11 +52,6 @@ mesh = SubResource("PlaneMesh_ccbq8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NEGATIVE/StaticBody3D" unique_id=501129273]
 shape = SubResource("BoxShape3D_5puvx")
 
-[node name="RBBox" parent="." unique_id=1971502724 instance=ExtResource("3_j4ciw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0453916, 4.138065, -4.482267)
-orange = SubResource("StandardMaterial3D_j4ciw")
-blue = SubResource("StandardMaterial3D_5jff8")
-
 [node name="ConditionDoor" parent="." unique_id=884938672 node_paths=PackedStringArray("Triggers") instance=ExtResource("5_ehg42")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8388424, 0.037714005, -2.0971546)
 Triggers = [NodePath("../ActivationButton")]
@@ -78,3 +65,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.210685, 0, 4.7201486)
 transform = Transform3D(5.7850237, 0, 1.4745839, 0, 5.97, 0, -1.474584, 0, 5.785023, 3.5068545, 3.8103824, -4.288)
 text = "No more levels left.
 You won!!! : D"
+
+[node name="RBBox" parent="." unique_id=1971502724 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.950828, 5.9683175, -4.482267)
+Throwable = true
+
+[node name="RBBox2" parent="." unique_id=611877962 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4273543, 5.9683175, -4.482267)
+Throwable = true
+Weight = 0.8
+
+[node name="RBBox3" parent="." unique_id=536094781 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9595234, 5.9683175, -4.482267)
+Throwable = true
+Weight = 0.6
+
+[node name="RBBox4" parent="." unique_id=1222622576 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6151681, 5.9683175, -4.482267)
+Throwable = true
+Weight = 0.4
+
+[node name="RBBox5" parent="." unique_id=9455485 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0304823, 5.9683175, -4.482267)
+Throwable = true
+Weight = 0.2
+
+[node name="RBBox6" parent="." unique_id=1323554007 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.523149, 5.9683175, -4.482267)
+Throwable = true
+Weight = 0.0
+
+[node name="RBBox7" parent="." unique_id=7141752 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9993097, 8.597961, 5.9683175, -4.401115)
+InverseGravity = true
+Throwable = true
+Weight = 0.8
+
+[node name="RBBox8" parent="." unique_id=493577072 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9993097, 7.131144, 5.9683175, -4.455644)
+InverseGravity = true
+Throwable = true
+Weight = 0.6
+
+[node name="RBBox9" parent="." unique_id=1423309831 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9993097, 5.787717, 5.9683175, -4.5055866)
+InverseGravity = true
+Throwable = true
+Weight = 0.4
+
+[node name="RBBox10" parent="." unique_id=821168389 instance=ExtResource("3_j4ciw")]
+transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9993097, 4.1432023, 5.9683175, -4.566722)
+InverseGravity = true
+Throwable = true
+Weight = 0.2
