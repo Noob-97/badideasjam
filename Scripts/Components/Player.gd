@@ -36,6 +36,10 @@ func _input(event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event.is_action("ui_cancel"):
 		get_tree().quit()
+	if event.is_action("fullscreen"):
+		var mode := DisplayServer.window_get_mode()
+		var is_window: bool = mode != DisplayServer.WINDOW_MODE_FULLSCREEN
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if is_window else DisplayServer.WINDOW_MODE_WINDOWED)
 func _unhandled_input(event):
 	if (event is InputEventMouseMotion):
 		var MouseVector = event.relative
