@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://3orsrkpqtgd2" path="res://activation_button.tscn" id="4_5jff8"]
 [ext_resource type="PackedScene" uid="uid://dsks2gb6e2he8" path="res://condition_door.tscn" id="5_ehg42"]
 [ext_resource type="PackedScene" uid="uid://cmxa01va1hgks" path="res://damage_floor.tscn" id="6_rfkqk"]
+[ext_resource type="PackedScene" uid="uid://cffcgqbfloe4w" path="res://rules.tscn" id="7_5jff8"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ccbq8"]
 
@@ -63,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.210685, 0, 4.7201486)
 
 [node name="Label3D" type="Label3D" parent="." unique_id=2035500014]
 transform = Transform3D(5.7850237, 0, 1.4745839, 0, 5.97, 0, -1.474584, 0, 5.785023, 3.5068545, 3.8103824, -4.288)
-text = "No more levels left.
+text = "Congrats on winning the 6 levels!
 You won!!! : D"
 
 [node name="RBBox" parent="." unique_id=1971502724 instance=ExtResource("3_j4ciw")]
@@ -112,6 +113,9 @@ transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9
 InverseGravity = true
 Throwable = true
 Weight = 0.4
+
+[node name="RULES" parent="." unique_id=1092668556 instance=ExtResource("7_5jff8")]
+CurrentLevel = 0
 
 [node name="RBBox10" parent="." unique_id=821168389 instance=ExtResource("3_j4ciw")]
 transform = Transform3D(-0.9993097, 0, 0.03714961, 0, 1, 0, -0.03714961, 0, -0.9993097, 4.1432023, 5.9683175, -4.566722)

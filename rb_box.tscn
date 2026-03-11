@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://wt73dsylltvo" path="res://Scripts/RBBox.gd" id="1_8ooh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fnyhn"]
+size = Vector3(1.0345459, 1.0549688, 1.0261102)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m365"]
 albedo_color = Color(0.8548469, 0.48452926, 0, 1)
@@ -16,6 +17,7 @@ script = ExtResource("1_8ooh3")
 mesh = NodePath("MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1087501353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.007762432, -0.011076331)
 shape = SubResource("BoxShape3D_fnyhn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1225029045]

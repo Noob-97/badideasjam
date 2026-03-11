@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://ccqqu6qkyvq3g"]
+
+[ext_resource type="PackedScene" uid="uid://bi5nw562aceo6" path="res://player.tscn" id="1_5f4vh"]
+[ext_resource type="PackedScene" uid="uid://dsks2gb6e2he8" path="res://condition_door.tscn" id="2_wujxh"]
+[ext_resource type="PackedScene" uid="uid://3orsrkpqtgd2" path="res://activation_button.tscn" id="3_m3qdh"]
+[ext_resource type="PackedScene" uid="uid://c7auaea3vkgfx" path="res://rb_box.tscn" id="4_2hl13"]
+[ext_resource type="PackedScene" uid="uid://m4utlfhopnp4" path="res://winning_button.tscn" id="5_2hl13"]
+[ext_resource type="PackedScene" uid="uid://cmxa01va1hgks" path="res://damage_floor.tscn" id="6_uvq6p"]
+[ext_resource type="PackedScene" uid="uid://cffcgqbfloe4w" path="res://rules.tscn" id="7_uvq6p"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kfsdj"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_bottom_color = Color(0.63797045, 0.66127646, 0.74390274, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_gy26g"]
+sky_material = SubResource("ProceduralSkyMaterial_kfsdj")
+
+[sub_resource type="Environment" id="Environment_ml8v1"]
+background_mode = 2
+sky = SubResource("Sky_gy26g")
+tonemap_mode = 2
+
+[node name="Node3D" type="Node3D" unique_id=1589370238]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=875531760]
+environment = SubResource("Environment_ml8v1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1256079407]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 10.675654, 0)
+shadow_caster_mask = 4294967294
+
+[node name="Player" parent="." unique_id=1187361912 instance=ExtResource("1_5f4vh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30156326, -33, -2)
+SwitchGravityWhileGrabbingEnabled = true
+ThrowForceMax = 30.0
+
+[node name="Map" type="CSGCombiner3D" parent="." unique_id=2051432745]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map" unique_id=1755415061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1558228, -14)
+size = Vector3(7, 0.6883545, 29)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map" unique_id=161689980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, -35, -13.5)
+size = Vector3(17, 1, 28)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map" unique_id=1029746535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 38.1271, -13.5)
+size = Vector3(29, 1, 28)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map" unique_id=1721256074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.5, -33, -14)
+size = Vector3(4, 1, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map" unique_id=35793932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.5, 38, -13)
+size = Vector3(4, 1, 5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map" unique_id=1286059350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.9572754, -14)
+size = Vector3(1, 73, 29)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map" unique_id=1364558177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.4572754, 1)
+size = Vector3(72, 74, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map" unique_id=617516886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.4572754, -28)
+size = Vector3(72, 74, 1)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Map" unique_id=853889152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 1.4572754, -13.5)
+size = Vector3(1, 74, 28)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Map" unique_id=533369372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 6.1558228, -14)
+size = Vector3(7, 0.6883545, 29)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Map" unique_id=2136006055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 6.1558228, -1)
+size = Vector3(24, 0.6883545, 3)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Map" unique_id=1919524247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 6.1558228, -26)
+size = Vector3(24, 0.6883545, 3)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Map" unique_id=894739311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.15582275, -14)
+size = Vector3(2, 0.6883545, 29)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Map" unique_id=247503730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0.15582275, -22)
+size = Vector3(3, 0.6883545, 13)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Map" unique_id=898776655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.15582275, 0)
+size = Vector3(33, 0.6883545, 1)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Map" unique_id=341819100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.15582275, -27)
+size = Vector3(33, 0.6883545, 1)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Map" unique_id=412994489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0.15582275, -6)
+size = Vector3(3, 0.6883545, 13)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map" unique_id=323581750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0634766, -35, -13.5)
+size = Vector3(21.126953, 1, 28)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map" unique_id=1389170790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.591858, -35, -5.442871)
+size = Vector3(24.183716, 1, 11.885742)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map" unique_id=367913742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.591858, -35, -20.937794)
+size = Vector3(24.183716, 1, 13.315918)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Map" unique_id=989214325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -113.042725, -11)
+size = Vector3(3, 155, 1)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Map" unique_id=656674747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -113.042725, -15)
+size = Vector3(3, 155, 1)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Map" unique_id=873788064]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -114.042725, -13)
+size = Vector3(1, 157, 5)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Map" unique_id=1289885421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -114.042725, -13)
+size = Vector3(1, 157, 5)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Map" unique_id=2050917437]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 18, 100.494354, -15.431898)
+size = Vector3(3, 125, 1)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Map" unique_id=905071197]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 18, 100.494354, -11.431898)
+size = Vector3(3, 125, 1)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Map" unique_id=2080667293]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 20, 99.994354, -13.431898)
+size = Vector3(1, 124, 5)
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="Map" unique_id=124456515]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 16, 100.494354, -13.431898)
+size = Vector3(1, 125, 5)
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="Map" unique_id=1586194695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 38.1271, -13.5)
+size = Vector3(29, 1, 28)
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="Map" unique_id=1537450011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 38.1271, -13.5)
+size = Vector3(16, 1, 28)
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Map" unique_id=997198674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 38.1271, -5.5)
+size = Vector3(25, 1, 12)
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="Map" unique_id=1861702136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 38.1271, -21.5)
+size = Vector3(25, 1, 12)
+
+[node name="ConditionDoor" parent="." unique_id=884938672 node_paths=PackedStringArray("Triggers") instance=ExtResource("2_wujxh")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 18.800299, -178.47421, -14.295682)
+Triggers = [NodePath("../ActivationButton2")]
+
+[node name="ActivationButton" parent="." unique_id=1154767425 instance=ExtResource("3_m3qdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.456936, 37.455368, -13.716747)
+Negation = true
+
+[node name="RBBox" parent="." unique_id=611877962 instance=ExtResource("4_2hl13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.518238, -31.035809, -13.657204)
+
+[node name="ActivationButton2" parent="." unique_id=1269507269 instance=ExtResource("3_m3qdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.456936, -32.345543, -13.654434)
+Negation = true
+
+[node name="WinningPlate" parent="." unique_id=485271149 instance=ExtResource("5_2hl13")]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 16.7, 18, -190, -13)
+LevelsFolder = "Prototype2Levels"
+NextLevelScene = "LEVEL5"
+
+[node name="DamageFloor" parent="." unique_id=1209392795 instance=ExtResource("6_uvq6p")]
+transform = Transform3D(12.87, 0, 0, 0, 1, 0, 0, 0, 8.3, 56, 39, -12)
+
+[node name="DamageFloor2" parent="." unique_id=234712714 instance=ExtResource("6_uvq6p")]
+transform = Transform3D(12.87, 0, 0, 0, 1, 0, 0, 0, 8.3, 61, -35, -12)
+
+[node name="RBBox2" parent="." unique_id=2060336181 instance=ExtResource("4_2hl13")]
+transform = Transform3D(-1.6906053, 0, 0, 0, 1.1100359, 0, 0, 0, 1.4282279, -3, 3, -14)
+Throwable = true
+Weight = 2.0
+
+[node name="ConditionDoor3" parent="." unique_id=155620229 node_paths=PackedStringArray("Triggers") instance=ExtResource("2_wujxh")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, -1, -4.371139e-08, 3.821371e-15, 4.371139e-08, -1, 4.371139e-08, 18.800299, 150.92584, -12.136212)
+Triggers = [NodePath("../ActivationButton")]
+
+[node name="RULES" parent="." unique_id=1092668556 instance=ExtResource("7_uvq6p")]
+CurrentLevel = 5
+
+[node name="WinningPlate2" parent="." unique_id=1997895623 instance=ExtResource("5_2hl13")]
+transform = Transform3D(4, 0, 0, 0, -1, -1.4599605e-06, 0, 8.742278e-08, -16.7, 18, 162.45163, -13.431895)
+LevelsFolder = "Prototype2Levels"
+NextLevelScene = "LEVEL5"

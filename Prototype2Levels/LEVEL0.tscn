@@ -125,7 +125,7 @@ mesh = SubResource("PlaneMesh_bvd1t")
 [node name="StaticBody3D" type="StaticBody3D" parent="POSITIVE1" unique_id=1171308619]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="POSITIVE1/StaticBody3D" unique_id=2067917357]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0036621094, -0.004852295, 0.00048828125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999925, 0.0036620498, -0.004852295, 0.00048828125)
 shape = SubResource("BoxShape3D_gy26g")
 
 [node name="WALLS" type="Node3D" parent="." unique_id=2087195388]

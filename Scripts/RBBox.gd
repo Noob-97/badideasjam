@@ -33,6 +33,12 @@ func UPDATE_COLORS():
 	if gravity_scale < 0:
 		result_color = Color((result_color.r + negative_color.r) / 2, (result_color.g + negative_color.g) / 2, (result_color.b + negative_color.b) / 2, 1)
 	var mat = StandardMaterial3D.new()
+	
+	if Throwable:
+		if gravity_scale > 0:
+			result_color = Color(0.921, 0.37, 0.642, 1.0)
+		if gravity_scale < 0:
+			result_color = Color(0.286, 0.69, 0.469, 1.0)
 	mat.albedo_color = result_color
 	mesh.mesh.surface_set_material(0, mat)
 

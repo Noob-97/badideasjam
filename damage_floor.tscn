@@ -9,7 +9,7 @@ albedo_color = Color(0.79731816, 0.13092327, 9.62615e-08, 1)
 material = SubResource("StandardMaterial3D_j4ciw")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfkqk"]
-size = Vector3(3.88385, 0.40628052, 4.3094482)
+size = Vector3(3.88385, 0.27228546, 4.3094482)
 
 [node name="DamageFloor" type="Node3D" unique_id=1209392795]
 
@@ -27,5 +27,5 @@ shape = SubResource("BoxShape3D_rfkqk")
 script = ExtResource("1_rlpw6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1527929788]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066604614, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00039291382, 0)
 shape = SubResource("BoxShape3D_rfkqk")

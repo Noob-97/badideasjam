@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Player
 @export var GravityRetainEnabled : bool
 @export var SwitchGravityWhileGrabbingEnabled: bool
+@export var ThrowForceMax: float
 @export_group("Configuration")
 @export var char_component: CharacterComponent
 @export var head: Node3D
@@ -11,6 +12,7 @@ class_name Player
 @export var below: RayCast3D
 @export var GrabRay: RayCast3D
 @export var player_mesh: MeshInstance3D
+@export var throwbar: ProgressBar
 var prev_rotation: Vector3
 var prev_mouse_move: float
 var jump_buffer: bool = false
@@ -25,7 +27,7 @@ var throw_step = 0.5
 var spins = 0
 
 signal ChangedGravity
-
+	
 func _input(event):
 	if event.is_action_pressed("unlock_mouse"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -53,7 +55,8 @@ func _unhandled_input(event):
 			throw += throw_step
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			throw -= throw_step
-		throw = clamp(throw, 0, 10)
+		throw = clamp(throw, 0, ThrowForceMax)
+		throwbar.value = throw
 		#print(throw)
 func _physics_process(delta: float) -> void:
 	var checking_for_collision
@@ -121,6 +124,7 @@ func _physics_process(delta: float) -> void:
 		if grabbing:
 			GrabSpot.get_child(0).maintain_local_pos = false	
 			if GrabSpot.get_child(0).Throwable:
+				throwbar.hide()
 				GrabSpot.get_child(0).linear_velocity = -basis.z * throw
 				GrabSpot.get_child(0).linear_velocity.y += -head.basis.z.y * throw * 3.5
 				print(-basis.z * throw) # FORWARD VECTOR times THROW FORCE
@@ -128,6 +132,9 @@ func _physics_process(delta: float) -> void:
 			grabbing = false
 		elif not grabbing and GrabRay.is_colliding():
 			if GrabRay.get_collider() is RBBox:
+				if GrabRay.get_collider().Throwable:
+					throwbar.show()
+					
 				# Set local gravity after grabbing
 				if char_component.gravity_mode:
 					GrabRay.get_collider().gravity_scale = - abs(GrabRay.get_collider().gravity_scale)
@@ -138,6 +145,9 @@ func _physics_process(delta: float) -> void:
 				GrabRay.get_collider().maintain_local_pos = true
 				GrabRay.get_collider().reparent(GrabSpot)
 				grabbing = true
+				
+	if Input.is_action_just_pressed("restart"):
+		get_tree().reload_current_scene()
 
 func _on_touched_ground() -> void:
 	if jump_buffer:
@@ -150,6 +160,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	char_component.touched_ground.connect(_on_touched_ground)
 	char_component.died.connect(dying_behaviour)
+	throwbar.max_value = ThrowForceMax
 	
 	
 	

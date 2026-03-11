@@ -14,8 +14,9 @@ albedo_color = Color(0.58063054, 0.8642447, 0.41984212, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
 material = SubResource("StandardMaterial3D_bo1nx")
 
-[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "GrabSpot", "camera", "above", "below", "GrabRay", "player_mesh")]
+[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "GrabSpot", "camera", "above", "below", "GrabRay", "player_mesh", "throwbar")]
 script = ExtResource("1_cvnsp")
+ThrowForceMax = 10.0
 char_component = NodePath("CharacterComponent")
 head = NodePath("CameraHandler/head")
 GrabSpot = NodePath("GrabSpot")
@@ -24,6 +25,7 @@ above = NodePath("GravityRaycasts/Above")
 below = NodePath("GravityRaycasts/Below")
 GrabRay = NodePath("CameraHandler/head/GrabRaycast")
 player_mesh = NodePath("PlayerMesh")
+throwbar = NodePath("ThrowBar")
 
 [node name="CameraHandler" type="Node3D" parent="." unique_id=1502466934]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030871034, 0.55472654, -0.006180644)
@@ -77,10 +79,11 @@ target_position = Vector3(0, -5, 0)
 target_position = Vector3(0, 5, 0)
 
 [node name="GrabSpot" type="Node3D" parent="." unique_id=1938648998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3260067)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7316854)
 
 [node name="Crosshair" type="Control" parent="." unique_id=1593391003]
 layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -95,3 +98,15 @@ crosshairThickness = 2.0
 crosshairSize = 10.0
 crosshairColor = Color(0, 0, 0, 0.5)
 metadata/_custom_type_script = "uid://c26x74n6mgfm3"
+
+[node name="ThrowBar" type="ProgressBar" parent="." unique_id=2003410984]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 448.0
+offset_top = 384.0
+offset_right = -448.0
+offset_bottom = -237.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -3,6 +3,7 @@ class_name ActivationButton
 
 signal ConditionUpdated(value)
 @export var condition : bool
+@export var Negation: bool
 
 func _ready() -> void:
 	body_entered.connect(CHECK_BODIES)
@@ -10,9 +11,9 @@ func _ready() -> void:
 
 func CHECK_BODIES(body):
 	var bodies = get_overlapping_bodies()
-	var found := false
+	var found := Negation
 	for i in bodies:
 		if i is RBBox or i is Player:
-			found = true
+			found = not Negation
 	condition = found
 	ConditionUpdated.emit(condition)
