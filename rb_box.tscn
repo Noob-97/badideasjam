@@ -13,6 +13,7 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_7m365")
 
 [node name="RBBox" type="RigidBody3D" unique_id=611877962 node_paths=PackedStringArray("mesh")]
+collision_layer = 2
 script = ExtResource("1_8ooh3")
 mesh = NodePath("MeshInstance3D")
 

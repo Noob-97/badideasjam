@@ -14,16 +14,17 @@ albedo_color = Color(0.58063054, 0.8642447, 0.41984212, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
 material = SubResource("StandardMaterial3D_bo1nx")
 
-[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "GrabSpot", "camera", "above", "below", "GrabRay", "player_mesh", "throwbar")]
+[node name="Player" type="CharacterBody3D" unique_id=1187361912 node_paths=PackedStringArray("char_component", "head", "GrabSpot", "camera", "above", "below", "GrabRay", "GrabWallCheck", "player_mesh", "throwbar")]
 script = ExtResource("1_cvnsp")
 ThrowForceMax = 10.0
 char_component = NodePath("CharacterComponent")
 head = NodePath("CameraHandler/head")
-GrabSpot = NodePath("GrabSpot")
+GrabSpot = NodePath("CameraHandler/head/Camera3D/GrabSpot")
 camera = NodePath("CameraHandler/head/Camera3D")
 above = NodePath("GravityRaycasts/Above")
 below = NodePath("GravityRaycasts/Below")
 GrabRay = NodePath("CameraHandler/head/GrabRaycast")
+GrabWallCheck = NodePath("CameraHandler/head/GrabWallcheck")
 player_mesh = NodePath("PlayerMesh")
 throwbar = NodePath("ThrowBar")
 
@@ -37,9 +38,17 @@ top_level = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.023585081)
 cull_mask = 1048063
 
+[node name="GrabSpot" type="Node3D" parent="CameraHandler/head/Camera3D" unique_id=1938648998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003, 0, -2)
+
 [node name="GrabRaycast" type="RayCast3D" parent="CameraHandler/head" unique_id=1448255473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.024517179)
 target_position = Vector3(0, 0, -3)
+collision_mask = 2
+
+[node name="GrabWallcheck" type="RayCast3D" parent="CameraHandler/head" unique_id=1781226871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.024517179)
+target_position = Vector3(0, 0, -4)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=532609218]
 shape = SubResource("CapsuleShape3D_jjvhh")
@@ -77,9 +86,6 @@ target_position = Vector3(0, -5, 0)
 
 [node name="Above" type="RayCast3D" parent="GravityRaycasts" unique_id=1369559158]
 target_position = Vector3(0, 5, 0)
-
-[node name="GrabSpot" type="Node3D" parent="." unique_id=1938648998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7316854)
 
 [node name="Crosshair" type="Control" parent="." unique_id=1593391003]
 layout_mode = 3

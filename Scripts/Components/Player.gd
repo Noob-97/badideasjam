@@ -11,8 +11,10 @@ class_name Player
 @export var above: RayCast3D
 @export var below: RayCast3D
 @export var GrabRay: RayCast3D
+@export var GrabWallCheck: RayCast3D
 @export var player_mesh: MeshInstance3D
 @export var throwbar: ProgressBar
+var current_grabbed_obj: RBBox
 var prev_rotation: Vector3
 var prev_mouse_move: float
 var jump_buffer: bool = false
@@ -27,7 +29,15 @@ var throw_step = 0.5
 var spins = 0
 
 signal ChangedGravity
-	
+func grabbed_obj_collision():
+	if current_grabbed_obj:
+		if GrabWallCheck.get_collider():
+			current_grabbed_obj.maintain_local_pos = false
+			var new_pos = GrabWallCheck.get_collision_point() + (GrabWallCheck.get_collision_normal() * current_grabbed_obj.scale / 2)
+			current_grabbed_obj.position = GrabSpot.to_local(new_pos)
+			print(current_grabbed_obj.position)
+		else:
+			current_grabbed_obj.maintain_local_pos = true
 func _input(event):
 	if event.is_action_pressed("unlock_mouse"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -68,14 +78,13 @@ func _physics_process(delta: float) -> void:
 		checking_for_collision = above.is_colliding()
 	else:
 		checking_for_collision = below.is_colliding()
-		
+	grabbed_obj_collision()
 	prev_delta = delta
 	var input_dir
 	if char_component.gravity_mode:
 		input_dir = Input.get_vector("right", "left", "forward", "backward")
 	else:
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
-	head.get_parent_node_3d().position = position + Vector3(0, 0.5, 0)
 	char_component.move_into_direction(input_dir, delta)
 	rotation.y = prev_rotation.y
 	if Input.is_action_just_pressed("jump"):
@@ -107,11 +116,9 @@ func _physics_process(delta: float) -> void:
 				up_direction = Vector3.UP
 			rotate = true
 	
-	#if rotate and above.is_colliding():
 	if rotate:
 		var init_deg = player_mesh.rotation_degrees
 		var deg = 180.0 * spins
-		#print(init_deg)
 
 		## LERP METHOD
 		lerp_progress += lerp_step
@@ -126,33 +133,36 @@ func _physics_process(delta: float) -> void:
 			
 	if Input.is_action_just_pressed("grab"):
 		if grabbing:
-			GrabSpot.get_child(0).maintain_local_pos = false	
+			GrabSpot.get_child(0).maintain_local_pos = false
 			if GrabSpot.get_child(0).Throwable:
 				throwbar.hide()
 				GrabSpot.get_child(0).linear_velocity = -basis.z * throw
 				GrabSpot.get_child(0).linear_velocity.y += -head.basis.z.y * throw * 3.5
 				print(-basis.z * throw) # FORWARD VECTOR times THROW FORCE
 			GrabSpot.get_child(0).reparent(get_node("/root/Node3D"))
+			current_grabbed_obj = null
 			grabbing = false
 		elif not grabbing and GrabRay.is_colliding():
 			if GrabRay.get_collider() is RBBox:
 				if GrabRay.get_collider().Throwable:
 					throwbar.show()
-					
 				# Set local gravity after grabbing
+				current_grabbed_obj = GrabRay.get_collider()
 				if char_component.gravity_mode:
-					GrabRay.get_collider().gravity_scale = - abs(GrabRay.get_collider().gravity_scale)
+					current_grabbed_obj.gravity_scale = - abs(current_grabbed_obj.gravity_scale)
 				else:
-					GrabRay.get_collider().gravity_scale = abs(GrabRay.get_collider().gravity_scale)
-				GrabRay.get_collider().UPDATE_COLORS()
+					current_grabbed_obj.gravity_scale = abs(current_grabbed_obj.gravity_scale)
+				current_grabbed_obj.UPDATE_COLORS()
 				
-				GrabRay.get_collider().maintain_local_pos = true
-				GrabRay.get_collider().reparent(GrabSpot)
+				current_grabbed_obj.maintain_local_pos = true
+				current_grabbed_obj.reparent(GrabSpot)
 				grabbing = true
 				
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
 
+func _process(_delta):
+	head.get_parent_node_3d().position = position + Vector3(0, 0.5, 0)
 func _on_touched_ground() -> void:
 	if jump_buffer:
 		char_component.jump(prev_delta)

@@ -330,3 +330,6 @@ CurrentLevel = 1
 LevelsFolder = "Prototype2Levels"
 BasicControls = true
 metadata/_edit_use_anchors_ = true
+
+[node name="RBBox5" parent="." unique_id=611877962 instance=ExtResource("4_gy26g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.929407, 1.2058635, -5.0713387)
