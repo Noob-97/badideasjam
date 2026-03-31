@@ -9,6 +9,10 @@ class_name RBBox
 var maintain_local_pos = false
 
 func _ready() -> void:
+	if get_tree().current_scene.name == "TITLE":
+		return
+	if get_tree().current_scene.name == "CREDITS":
+		return
 	PlayerNode.ChangedGravity.connect(change_gravity)
 	gravity_scale = Weight
 	UPDATE_COLORS()

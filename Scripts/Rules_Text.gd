@@ -17,13 +17,13 @@ func _ready() -> void:
 		text += "CONTROLS:\n--------------------------\n"
 	# Basic Controls
 	if BasicControls:
-		text += "F to fullscreen (except on Web)\npress L to hide/show mouse\n\npress ESC to exit the game\n\nWASD to move\nright-click to switch gravities\nE to grab\n\nget to the end (green plate)!\n"
+		text += "press L to hide/show mouse\n\npress ESC to exit the game\n\nWASD to move\nright-click to switch gravities\nE to grab\n\nget to the end (green plate)!\n"
 	# Restart Key
 	if RestartKey:
 		text += "press R to restart the level\n"
 	# Retain Key
 	if RetainKey:
-		text += "press SHIFT to retain gravity\n"
+		text += "press SHIFT & RIGHT CLICK to retain gravity\n"
 	if ThrowControls:
 		text += "use the MOUSE WHEEL to increase throw force\n"
 	

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="badideasjam"
-run/main_scene="uid://bflb22ue8kruq"
+run/main_scene="uid://1jgdvumtnmng"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

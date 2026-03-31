@@ -27,6 +27,9 @@ var lerp_step = 0.01
 var throw = 0.0
 var throw_step = 0.5
 var spins = 0
+var title_dir = false
+var title_time = 1500
+var title_count = 0
 
 signal ChangedGravity
 func grabbed_obj_collision():
@@ -85,6 +88,15 @@ func _physics_process(delta: float) -> void:
 		input_dir = Input.get_vector("right", "left", "forward", "backward")
 	else:
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
+	if get_tree().current_scene.name == "TITLE":
+		if title_dir:
+			input_dir = Vector2(0.1, 0)
+		else:
+			input_dir = Vector2(-0.1, 0)
+		title_count += 1
+		if title_count == title_time:
+			title_dir = not title_dir
+			title_count = 0
 	char_component.move_into_direction(input_dir, delta)
 	rotation.y = prev_rotation.y
 	if Input.is_action_just_pressed("jump"):
@@ -171,10 +183,18 @@ func dying_behaviour() -> void:
 	print("Player Died. Restarting current scene.")
 	get_tree().call_deferred("reload_current_scene")
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if get_tree().current_scene.name == "TITLE":
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	char_component.touched_ground.connect(_on_touched_ground)
 	char_component.died.connect(dying_behaviour)
 	throwbar.max_value = ThrowForceMax
+	get_node("/root/MusicController")._ready()
+func goto_first_level():
+	get_tree().change_scene_to_file("res://Prototype2Levels/LEVEL0.tscn")
+func quit():
+	get_tree().quit()
 	
 	
 	
